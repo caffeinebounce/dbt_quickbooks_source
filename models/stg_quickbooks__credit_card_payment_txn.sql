@@ -1,5 +1,5 @@
 --To enable this model, set the using_invoice_bundle variable within your dbt_project.yml file to True.
-{{ config(enabled=var('using_credit_card_payment_txn', False)) }}
+{{ config(enabled=var('using_credit_card_payment_txn', True)) }}
 
 with base as (
 
