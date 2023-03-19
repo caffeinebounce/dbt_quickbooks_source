@@ -491,6 +491,31 @@ sources:
           - name: quantity
             description: Quantity of the item included on the invoice line.
 
+      - name: invoice_tax_line
+        identifier: "{{ var('quickbooks_invoice_tax_line_identifier', 'invoice_tax_line') }}"
+        description: "{{ doc('invoice_tax_line_table') }}"
+        columns:
+        - name: invoice_id
+          description: "{{ doc('id') }} invoice record."
+        - name: index
+          description: Index count of records associated with the invoice tax line record.
+        - name: amount
+          description: "{{ doc('amount') }} the invoice tax line record."
+        - name: percent_based
+          description: Indicates if the tax is percent-based or not for the invoice tax line record.
+        - name: net_amount_taxable
+          description: Net amount taxable for the invoice tax line record.
+        - name: tax_inclusive_amount
+          description: Tax-inclusive amount for the invoice tax line record.
+        - name: override_delta_amount
+          description: Override delta amount for the invoice tax line record.
+        - name: tax_percent
+          description: Tax percentage for the invoice tax line record.
+        - name: tax_rate_id
+          description: "{{ doc('id') }} tax rate associated with the invoice tax line record."
+        - name: _fivetran_synced
+          description: Timestamp of the last sync by Fivetran.
+
       - name: invoice_line_bundle
         identifier: "{{ var('quickbooks_invoice_line_bundle_identifier', 'invoice_line_bundle') }}"
         description: "{{ doc('invoice_line_bundle_table') }}"
@@ -946,6 +971,64 @@ sources:
             description: Timestamp of the date which the sale occurred.
           - name: _fivetran_deleted
             description: "{{ doc('_fivetran_deleted') }}" 
+
+      - name: tax_agency
+        identifier: "{{ var('quickbooks_tax_agency_identifier', 'tax_agency') }}"
+        description: "{{ doc('tax_agency_table') }}"
+        columns:
+          - name: id
+            description: "{{ doc('id') }} tax agency record."
+          - name: tax_tracked_on_purchases
+            description: Indicates if the tax is tracked on purchases for the tax agency record.
+          - name: sync_token
+            description: Sync token for the tax agency record.
+          - name: display_name
+            description: Display name for the tax agency record.
+          - name: tax_tracked_on_sales
+            description: Indicates if the tax is tracked on sales for the tax agency record.
+          - name: tax_registration_number
+            description: Tax registration number for the tax agency record.
+          - name: created_at
+            description: Creation timestamp of the tax agency record.
+          - name: updated_at
+            description: Update timestamp of the tax agency record.
+          - name: _fivetran_deleted
+            description: Indicates if the tax agency record has been deleted.
+          - name: _fivetran_synced
+            description: Timestamp of the last sync by Fivetran.
+      
+      - name: tax_rate
+        identifier: "{{ var('quickbooks_tax_rate_identifier', 'tax_rate') }}"
+        description: "{{ doc('tax_rate_table') }}"
+        columns:
+          - name: id
+            description: "{{ doc('id') }} tax rate record."
+          - name: name
+            description: Name of the tax rate.
+          - name: special_tax_type
+            description: Special tax type associated with the tax rate record.
+          - name: active
+            description: Indicates if the tax rate is active.
+          - name: rate_value
+            description: Rate value of the tax rate record.
+          - name: description
+            description: Description of the tax rate.
+          - name: display_type
+            description: Display type of the tax rate.
+          - name: sync_token
+            description: Sync token for the tax rate record.
+          - name: effective_tax_rate
+            description: Effective tax rate value in JSON format.
+          - name: created_at
+            description: Creation timestamp of the tax rate record.
+          - name: updated_at
+            description: Update timestamp of the tax rate record.
+          - name: _fivetran_deleted
+            description: Indicates if the tax rate record has been deleted.
+          - name: tax_agency_id
+            description: "{{ doc('id') }} tax agency record associated with the tax rate."
+          - name: _fivetran_synced
+            description: Timestamp of the last sync by Fivetran.
 
       - name: transfer
         identifier: "{{ var('quickbooks_transfer_identifier', 'transfer') }}"

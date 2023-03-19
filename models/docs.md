@@ -79,6 +79,10 @@ Table containing lines of an invoice which were bundled.
 Table containing individual records from invoices.
 {% enddocs %}
 
+{% docs invoice_tax_line_table %}
+Table containing individual tax records from invoices.
+{% enddocs %}
+
 {% docs invoice_linked_txn_table %}
 Mapping table for invoices records to respective estimate and payment objects.
 {% enddocs %}
@@ -141,6 +145,14 @@ Table containing individual line items of a sales transaction.
 
 {% docs sales_receipt_table %}
 Table containing sales receipts that are given to a customer. A sales receipt, payment is received as part of the sale of goods and services. The sales receipt specifies a deposit account where the customer's payment is deposited.
+{% enddocs %}
+
+{% docs tax_agency_table %}
+Table containing records of tax agencies.
+{% enddocs %}
+
+{% docs tax_rate_table %}
+Table containing records of tax rates for tax agencies.
 {% enddocs %}
 
 {% docs transfer_table %}

@@ -583,6 +583,30 @@ models:
       - name: quantity
         description: Quantity of the item included on the invoice line.
 
+  - name: stg_quickbooks__invoice_tax_line
+    description: "{{ doc('invoice_tax_line_table') }}"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - invoice_id
+            - index
+            - source_relation
+    columns:
+      - name: id
+        description: "{{ doc('id') }} invoice tax line record."
+        tests:
+          - not_null
+      - name: id_parent
+        description: Reference to the parent invoice tax line record.
+      - name: id_line
+        description: Reference to the line associated with the invoice tax line record.
+      - name: tax_rate_id
+        description: Reference to the tax rate associated with the invoice tax line record.
+      - name: tax_agency_id
+        description: Reference to the tax agency associated with the invoice tax line record.
+      - name: amount
+        description: Monetary amount of tax for the invoice tax line record.
+
   - name: stg_quickbooks__invoice_line_bundle
     description: "{{ doc('invoice_line_bundle_table') }}"
     tests:
@@ -1137,6 +1161,60 @@ models:
         description: Timestamp of the date which the sale occurred.
       - name: _fivetran_deleted
         description: Boolean created by Fivetran to indicate whether the record has been deleted.
+
+  - name: stg_quickbooks__tax_agency
+    description: "{{ doc('tax_agency_table') }}"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - tax_agency_id
+            - source_relation
+    columns:
+      - name: tax_agency_id
+        description: "{{ doc('id') }} tax agency record."
+        tests:
+          - not_null
+      - name: tax_tracked_on_purchases
+        description: Indicates if tax is tracked on purchases for the tax agency record.
+      - name: sync_token
+        description: Version number of the tax agency record.
+      - name: display_name
+        description: Display name for the tax agency record.
+      - name: tax_tracked_on_sales
+        description: Indicates if tax is tracked on sales for the tax agency record.
+      - name: tax_registration_number
+        description: Tax registration number for the tax agency record.
+
+  - name: stg_quickbooks__tax_rate
+    description: "{{ doc('tax_rate_table') }}"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - tax_rate_id
+            - source_relation
+    columns:
+      - name: tax_rate_id
+        description: "{{ doc('id') }} tax rate record."
+        tests:
+          - not_null
+      - name: name
+        description: Name of the tax rate record.
+      - name: special_tax_type
+        description: Special tax type of the tax rate record.
+      - name: active
+        description: Indicates if the tax rate record is active.
+      - name: rate_value
+        description: Rate value of the tax rate record.
+      - name: description
+        description: Description of the tax rate record.
+      - name: display_type
+        description: Display type of the tax rate record.
+      - name: sync_token
+        description: Version number of the tax rate record.
+      - name: effective_tax_rate
+        description: Effective tax rate of the tax rate record.
+      - name: tax_agency_id
+        description: Reference to the tax agency associated with the tax rate 
 
   - name: stg_quickbooks__transfer
     description: "{{ doc('transfer_table') }}"

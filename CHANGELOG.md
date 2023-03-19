@@ -1,3 +1,9 @@
+# dbt_quickbooks_source v0.7.2
+## 🎉 Feature Updates 🎉
+- Added new models for stg_quickbooks__invoice_tax_line, stg_quickbooks__tax_agency, and stg_quickbooks__tax_rate, including necessary additions to the project yml files. (#xx)
+Replace #xx with the appropriate pull request number once the changes are merged.
+-This update reflects the addition of new models for invoice tax lines, tax agencies, and tax rates to the dbt_quickbooks_source project.
+
 # dbt_quickbooks_source v0.7.1
 ## 🎉 Feature Updates 🎉
 - Removed not-null test for `bill_payment_id` field in `stg_quickbooks__bill_linked_txn` to account for bills with empty bill payment values. ([#41](https://github.com/fivetran/dbt_quickbooks_source/pull/41))
