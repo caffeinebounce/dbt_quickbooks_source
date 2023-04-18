@@ -9,6 +9,7 @@
     {"name": "description", "datatype": dbt.type_string()},
     {"name": "description_service_date", "datatype": dbt.type_timestamp()},
     {"name": "description_tax_code_id", "datatype": dbt.type_string()},
+    {"name": "detail_type", "datatype": dbt.type_string()},
     {"name": "discount_account_id", "datatype": dbt.type_string()},
     {"name": "discount_class_id", "datatype": dbt.type_string()},
     {"name": "discount_discount_percent", "datatype": dbt.type_float()},

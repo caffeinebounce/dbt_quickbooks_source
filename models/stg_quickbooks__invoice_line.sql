@@ -8,6 +8,13 @@ with base as (
 
 ),
 
+items as (
+
+    select * 
+    from {{ ref('stg_quickbooks__item_tmp') }}
+
+),
+
 fields as (
 
     select
@@ -41,14 +48,20 @@ final as (
         cast(invoice_id as {{ dbt.type_string() }}) as invoice_id,
         index,
         amount,
-        cast(sales_item_account_id as {{ dbt.type_string() }}) as sales_item_account_id,
-        cast(sales_item_item_id as {{ dbt.type_string() }}) as sales_item_item_id,
+        cast(coalesce(fields.sales_item_account_id, description_only_items.income_account_id, 
+            case
+                when fields.detail_type = 'DescriptionOnly' and sales_item_item_id is null and sales_item_account_id is null and bundle_id is null and account_id is null and item_id is null
+                then '32'
+                else null
+            end) 
+        as {{ dbt.type_string() }}) as sales_item_account_id,
+        cast(coalesce(fields.sales_item_item_id, description_only_items.id) as {{ dbt.type_string() }}) as sales_item_item_id,
         cast(sales_item_class_id as {{ dbt.type_string() }}) as sales_item_class_id,
         sales_item_quantity,
         sales_item_unit_price,
         discount_account_id,
         cast(discount_class_id as {{ dbt.type_string() }}) as discount_class_id,
-        description,
+        fields.description,
         quantity,
         bundle_quantity,
         cast(bundle_id as {{ dbt.type_string() }}) as bundle_id,
@@ -56,6 +69,14 @@ final as (
         cast(item_id as {{ dbt.type_string() }}) as item_id,
         source_relation
     from fields
+
+    left join items as description_only_items
+        on fields.description = description_only_items.name
+        and fields.sales_item_account_id is null
+        and fields.sales_item_item_id is null
+        and fields.bundle_id is null
+        and fields.account_id is null
+        and fields.item_id is null
 )
 
 select * 
